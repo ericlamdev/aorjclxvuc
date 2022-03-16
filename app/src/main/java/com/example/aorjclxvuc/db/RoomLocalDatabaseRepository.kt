@@ -7,7 +7,5 @@ class RoomLocalDatabaseRepository(
 ) : LocalDatabaseRepository {
 
     override fun getCurrencyInfoList(isAsc: Boolean?): List<CurrencyInfoDBEntity> =
-        isAsc?.let {
-            appDatabase.currencyInfoDao().getAllCurrencyInfoRecordWithOrder(isAsc)
-        } ?: appDatabase.currencyInfoDao().getAllCurrencyInfoRecord()
+        appDatabase.currencyInfoDao().getAllCurrencyInfoRecord(isAsc)
 }
