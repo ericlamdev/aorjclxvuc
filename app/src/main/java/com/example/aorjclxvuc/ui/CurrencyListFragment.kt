@@ -35,7 +35,7 @@ class CurrencyListFragment : Fragment() {
 
     private var binding: FragmentCurrencyListBinding? = null
 
-    private val adapter: CurrencyListAdapter by lazy {
+    private val currencyListAdapter: CurrencyListAdapter by lazy {
         CurrencyListAdapter()
     }
 
@@ -53,11 +53,15 @@ class CurrencyListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            rvCurrencyInfoList.adapter = adapter
+            rvCurrencyInfoList.adapter = currencyListAdapter
 
             (arguments?.get(BUNDLE_KEY_CURRENCY_LIST) as? CurrencyListBundle)?.let {
-                adapter.submitList(it.currencyInfoList)
+                currencyListAdapter.submitList(it.currencyInfoList)
             }
         }
+    }
+
+    fun updateList(currencyInfoList: ArrayList<CurrencyInfo>) {
+        currencyListAdapter.submitList(currencyInfoList)
     }
 }
