@@ -7,12 +7,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
 import com.example.aorjclxvuc.R
 import com.example.aorjclxvuc.databinding.ActivityDemoBinding
+import com.example.aorjclxvuc.model.CurrencyInfo
 import com.example.aorjclxvuc.utils.launchAndCollectIn
 import com.example.aorjclxvuc.utils.onSingleClick
 import com.example.aorjclxvuc.viewmodel.DemoViewModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DemoActivity : AppCompatActivity() {
+class DemoActivity : AppCompatActivity(), CurrencyListFragment.CurrencyListListener {
 
     private lateinit var binding: ActivityDemoBinding
 
@@ -46,21 +48,23 @@ class DemoActivity : AppCompatActivity() {
 
             list?.let {
                 with(supportFragmentManager) {
-                    viewModel.isSortByAscFlow.value?.let {
-                        (findFragmentByTag(CurrencyListFragment::class.java.simpleName) as? CurrencyListFragment)?.updateList(
-                            ArrayList(list)
-                        )
+                    (findFragmentByTag(CurrencyListFragment::class.java.simpleName) as? CurrencyListFragment)?.let {
+                        it.updateList(ArrayList(list))
                     } ?: commit {
                         replace(
                             binding.fcContainer.id,
                             CurrencyListFragment.create(
                                 CurrencyListBundle(ArrayList(it))
-                            )
+                            ),
+                            CurrencyListFragment::class.java.simpleName
                         )
-                        addToBackStack(CurrencyListFragment::class.java.simpleName)
                     }
                 }
             }
         }
+    }
+
+    override fun onItemClick(item: CurrencyInfo) {
+        Snackbar.make(binding.root, "on item click ${item.name}", Snackbar.LENGTH_SHORT).show()
     }
 }

@@ -21,6 +21,10 @@ data class CurrencyListBundle(
 
 class CurrencyListFragment : Fragment() {
 
+    interface CurrencyListListener {
+        fun onItemClick(item: CurrencyInfo)
+    }
+
     companion object {
 
         private const val BUNDLE_KEY_CURRENCY_LIST = "currency_info_list"
@@ -57,6 +61,10 @@ class CurrencyListFragment : Fragment() {
 
             (arguments?.get(BUNDLE_KEY_CURRENCY_LIST) as? CurrencyListBundle)?.let {
                 currencyListAdapter.submitList(it.currencyInfoList)
+            }
+
+            currencyListAdapter.onItemClickListener = { item ->
+                (requireActivity() as? CurrencyListListener)?.onItemClick(item)
             }
         }
     }
