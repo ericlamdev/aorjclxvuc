@@ -1,6 +1,7 @@
 package com.example.aorjclxvuc
 
 import android.app.Application
+import com.example.aorjclxvuc.db.localDBModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,7 +20,8 @@ class App : Application() {
             androidLogger()
             androidContext(this@App)
             modules(
-                appModule
+                appModule,
+                localDBModule
             )
         }
     }
