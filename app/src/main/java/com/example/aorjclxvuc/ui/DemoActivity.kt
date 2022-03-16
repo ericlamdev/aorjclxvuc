@@ -48,9 +48,9 @@ class DemoActivity : AppCompatActivity(), CurrencyListFragment.CurrencyListListe
 
             list?.let {
                 with(supportFragmentManager) {
-                    (findFragmentByTag(CurrencyListFragment::class.java.simpleName) as? CurrencyListFragment)?.let {
-                        it.updateList(ArrayList(list))
-                    } ?: commit {
+                    (findFragmentByTag(CurrencyListFragment::class.java.simpleName) as? CurrencyListFragment)?.updateList(
+                        ArrayList(list)
+                    ) ?: commit {
                         replace(
                             binding.fcContainer.id,
                             CurrencyListFragment.create(
