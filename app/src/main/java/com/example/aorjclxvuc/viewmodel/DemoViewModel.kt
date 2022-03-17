@@ -22,19 +22,6 @@ class DemoViewModel(
         MutableStateFlow(null)
     val currencyInfoListFlow = _currencyInfoListFlow.asStateFlow()
 
-//    val currencyInfoListFlow = combine(_sortOrderFlow, _currencyInfoListFlow) { order, list ->
-//        order?.let {
-//            when (order) {
-//                SortOrder.ASC -> {
-//                    list.sortedBy { it.name }
-//                }
-//                SortOrder.DSC -> {
-//                    list.sortedByDescending { it.name }
-//                }
-//            }
-//        } ?: list
-//    }
-
     fun getCurrencyInfoList(isAsc: Boolean? = null) {
         _isSortByAscFlow.value = isAsc
         viewModelScope.launch(Dispatchers.IO) {
